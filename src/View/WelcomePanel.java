@@ -18,33 +18,17 @@ import javax.swing.table.DefaultTableModel;
  * @author danie
  */
 public class WelcomePanel extends javax.swing.JPanel {
-    JPanel bottomJPanel;
-    private ArrayList<User> users;
-    private Room selectedRoom;
-    private Room currRoom;
+
     
     /**
      * Creates new form LoginFormPanel
      */
-    public WelcomePanel(JPanel bottomJPanel) {
-        this.bottomJPanel = bottomJPanel;
-        initComponents();
-        populateAdminTable();
+    public WelcomePanel() {
+
     }
     
     public void populateAdminTable() { 
-        this.users = DatabaseConnector.get_all_Agency_stuff();
-        
-        DefaultTableModel model = (DefaultTableModel) this.roomReportTable.getModel();
-        model.setRowCount(0);
-        for(User r : this.users) { 
-            Object [] rows = new Object[7];
-            rows[0] = r.get_user_id();
-            rows[1] = r.get_username();
-            rows[2] = r.get_phone_num();
-            rows[3] = r.get_role();
-            model.addRow(rows);
-        }
+
     }
     
     /**
@@ -57,7 +41,6 @@ public class WelcomePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jButton4 = new javax.swing.JButton();
-        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel4 = new javax.swing.JLabel();
 
         jButton4.setText("jButton4");
@@ -85,7 +68,6 @@ public class WelcomePanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
