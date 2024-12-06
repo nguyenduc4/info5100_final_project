@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author danie
  */
-public class StuffAdminFormPanel extends javax.swing.JPanel {
+public class HotelAdminFormPanel extends javax.swing.JPanel {
     JPanel bottomJPanel;
     private ArrayList<User> users;
     private Room selectedRoom;
@@ -26,7 +26,7 @@ public class StuffAdminFormPanel extends javax.swing.JPanel {
     /**
      * Creates new form LoginFormPanel
      */
-    public StuffAdminFormPanel(JPanel bottomJPanel) {
+    public HotelAdminFormPanel(JPanel bottomJPanel) {
         this.bottomJPanel = bottomJPanel;
         initComponents();
         populateAdminTable();
