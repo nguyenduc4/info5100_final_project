@@ -315,8 +315,8 @@ public class HotelStuffFormPanel extends javax.swing.JPanel {
         
         this.nameTextField.setText(this.currRoom.get_name());
         this.typeTextField.setText(this.currRoom.get_type());
-        this.statusTextField.setText(this.currRoom.get_status());
-        this.statusTextField.setEnabled(false);
+//        this.statusTextField.setText(this.currRoom.get_status());
+//        this.statusTextField.setEnabled(false);
         this.priceTextField.setText(String.valueOf(this.currRoom.get_price()));
     }//GEN-LAST:event_jButton1ActionPerformed
 
