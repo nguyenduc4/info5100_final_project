@@ -19,7 +19,11 @@ import java.util.ArrayList;
 public class DatabaseConnector {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/hotel_management_final_project?useSSL=false&allowPublicKeyRetrieval=true";
     private static final String USER = "root";
-    private static final String DB_PASSWORD = "Cel365";
+    private static final String DB_PASSWORD = "root";
+
+    public static ArrayList<User> get_all_Agency_stuff() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     public void Login(String username, String password){ 
         
