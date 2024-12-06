@@ -88,6 +88,7 @@ public class HotelStuffFormPanel extends javax.swing.JPanel {
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
         jLabel3.setText("Action");
@@ -189,6 +190,8 @@ public class HotelStuffFormPanel extends javax.swing.JPanel {
 
         jButton9.setText("Check In");
 
+        jButton10.setText("Today");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -242,7 +245,9 @@ public class HotelStuffFormPanel extends javax.swing.JPanel {
                                         .addGap(18, 18, 18)
                                         .addComponent(jButton7)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jButton8))
+                                        .addComponent(jButton8)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton10))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jLabel3)
@@ -284,10 +289,13 @@ public class HotelStuffFormPanel extends javax.swing.JPanel {
                             .addComponent(jButton4)
                             .addComponent(jButton6))
                         .addGap(7, 7, 7)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton7)
-                            .addComponent(jButton8)
-                            .addComponent(jButton9))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButton8)
+                                .addComponent(jButton10))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButton7)
+                                .addComponent(jButton9)))
                         .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -388,6 +396,7 @@ public class HotelStuffFormPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField hotelIDTextField;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
