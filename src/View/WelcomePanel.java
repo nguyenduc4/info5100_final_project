@@ -23,7 +23,7 @@ public class WelcomePanel extends javax.swing.JPanel {
     /**
      * Creates new form LoginFormPanel
      */
-    public WelcomePanel() {
+    public WelcomePanel(JPanel bottomJPanel) {
         this.bottomJPanel = bottomJPanel;
         initComponents();
     }

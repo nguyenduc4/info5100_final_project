@@ -31,26 +31,26 @@ public class JFrame extends javax.swing.JFrame {
     }
     
     public void InitDefaultBottomLayout() { 
-//        HotelStuffFormPanel newFormJPanel = new HotelStuffFormPanel(this.bottomJPanel);
-//        this.bottomJPanel.add(newFormJPanel);
-//        CardLayout layout = (CardLayout) this.bottomJPanel.getLayout();
-//        layout.next(this.bottomJPanel);
-        bottomJPanel.setLayout(new CardLayout());
-    
-        HotelStuffFormPanel hotelStuffPanel = new HotelStuffFormPanel(this.bottomJPanel);
-        bottomJPanel.add(hotelStuffPanel, "HotelStuff");
-
-        AgencyAdminFormPanel agencyAdminPanel = new AgencyAdminFormPanel(this.bottomJPanel);
-        bottomJPanel.add(agencyAdminPanel, "AgencyAdmin");
-
-        AgencyStuffFormPanel agencyStuffPanel = new AgencyStuffFormPanel(this.bottomJPanel);
-        bottomJPanel.add(agencyStuffPanel, "AgencyStuff");
-
-        HotelAdminFormPanel hotelAdminPanel = new HotelAdminFormPanel(this.bottomJPanel);
-        bottomJPanel.add(hotelAdminPanel, "HotelAdmin");
-
-        CardLayout layout = (CardLayout) bottomJPanel.getLayout();
-        layout.show(bottomJPanel, "HotelStuff");
+        WelcomePanel newFormJPanel = new WelcomePanel(this.bottomJPanel);
+        this.bottomJPanel.add(newFormJPanel);
+        CardLayout layout = (CardLayout) this.bottomJPanel.getLayout();
+        layout.next(this.bottomJPanel);
+//        bottomJPanel.setLayout(new CardLayout());
+//    
+//        HotelStuffFormPanel hotelStuffPanel = new HotelStuffFormPanel(this.bottomJPanel);
+//        bottomJPanel.add(hotelStuffPanel, "HotelStuff");
+//
+//        AgencyAdminFormPanel agencyAdminPanel = new AgencyAdminFormPanel(this.bottomJPanel);
+//        bottomJPanel.add(agencyAdminPanel, "AgencyAdmin");
+//
+//        AgencyStuffFormPanel agencyStuffPanel = new AgencyStuffFormPanel(this.bottomJPanel);
+//        bottomJPanel.add(agencyStuffPanel, "AgencyStuff");
+//
+//        HotelAdminFormPanel hotelAdminPanel = new HotelAdminFormPanel(this.bottomJPanel);
+//        bottomJPanel.add(hotelAdminPanel, "HotelAdmin");
+//
+//        CardLayout layout = (CardLayout) bottomJPanel.getLayout();
+//        layout.show(bottomJPanel, "HotelStuff");
     }
     
     /**
@@ -180,9 +180,11 @@ public class JFrame extends javax.swing.JFrame {
         String password = new String(txtPassword.getPassword());
         // verify username&password
         User u = dbConnector.login(username, password);
-        if (u != null) {
-            CardLayout layout = (CardLayout) bottomJPanel.getLayout();
-            layout.show(bottomJPanel, "AgencyAdmin");
+        if (u != null && "AgencyAdmin".equals(u.get_role())) {
+            AgencyAdminFormPanel newFormJPanel = new AgencyAdminFormPanel(this.bottomJPanel);
+            this.bottomJPanel.add(newFormJPanel);
+            CardLayout layout = (CardLayout) this.bottomJPanel.getLayout();
+            layout.next(this.bottomJPanel);
         } else {
             JOptionPane.showMessageDialog(this, "user or password error！");
         }
@@ -193,9 +195,11 @@ public class JFrame extends javax.swing.JFrame {
         String password = new String(txtPassword.getPassword());
         // verify username&password
         User u = dbConnector.login(username, password);
-        if (u != null) {
-            CardLayout layout = (CardLayout) bottomJPanel.getLayout();
-            layout.show(bottomJPanel, "AgencyStuff");
+        if (u != null && "AgencyStaff".equals(u.get_role())) {
+            AgencyStuffFormPanel newFormJPanel = new AgencyStuffFormPanel(this.bottomJPanel);
+            this.bottomJPanel.add(newFormJPanel);
+            CardLayout layout = (CardLayout) this.bottomJPanel.getLayout();
+            layout.next(this.bottomJPanel);
         } else {
             JOptionPane.showMessageDialog(this, "user or password error！");
         }
@@ -206,9 +210,11 @@ public class JFrame extends javax.swing.JFrame {
         String password = new String(txtPassword.getPassword());
         // verify username&password
         User u = dbConnector.login(username, password);
-        if (u != null) {
-            CardLayout layout = (CardLayout) bottomJPanel.getLayout();
-            layout.show(bottomJPanel, "HotelAdmin");
+        if (u != null && "HotelAdmin".equals(u.get_role())) {
+            HotelAdminFormPanel newFormJPanel = new HotelAdminFormPanel(this.bottomJPanel);
+            this.bottomJPanel.add(newFormJPanel);
+            CardLayout layout = (CardLayout) this.bottomJPanel.getLayout();
+            layout.next(this.bottomJPanel);
         } else {
             JOptionPane.showMessageDialog(this, "user or password error! ");
         }
@@ -219,9 +225,11 @@ public class JFrame extends javax.swing.JFrame {
         String password = new String(txtPassword.getPassword());
         // verify username&password
         User u = dbConnector.login(username, password);
-        if (u != null) {
-            CardLayout layout = (CardLayout) bottomJPanel.getLayout();
-            layout.show(bottomJPanel, "HotelStuff");
+        if (u != null && "HotelStaff".equals(u.get_role())) {
+            HotelStuffFormPanel newFormJPanel = new HotelStuffFormPanel(this.bottomJPanel);
+            this.bottomJPanel.add(newFormJPanel);
+            CardLayout layout = (CardLayout) this.bottomJPanel.getLayout();
+            layout.next(this.bottomJPanel);
         } else {
             JOptionPane.showMessageDialog(this, "user or password error!");
         }
