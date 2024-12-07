@@ -4,7 +4,7 @@
 -- CREATE DATABASE hotel_management_final_project;
 USE hotel_management_final_project;	-- Tells to use explicit database 
 
-DROP TABLE Reservation;
+
 
 
 -- CREATE TABLE
@@ -13,7 +13,7 @@ CREATE TABLE User (
     username VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     phone_num VARCHAR(20),
-    role ENUM('Customer', 'Receptionist', 'Staff', 'Admin') NOT NULL
+    role ENUM('HotelStaff', 'AgencyStaff', 'AgencyAdmin', 'HotelAdmin') NOT NULL
 );
 
 CREATE TABLE Hotel ( 
@@ -28,7 +28,7 @@ CREATE TABLE Room (
 	hotel_id INT,
 	name VARCHAR(255),
 	type ENUM('SINGLE', 'DOUBLE', 'FAMILY'),
-	status ENUM('AVAILABLE', 'OCCUPIED', 'CLEANING'),
+	status VARCHAR(50),
 	price FLOAT NOT NULL
 );
 
