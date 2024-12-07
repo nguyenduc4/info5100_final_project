@@ -25,6 +25,59 @@ public class DatabaseConnector {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+
+    public static ArrayList<Room> get_filtered_reservation(String roomID, String hotelID, String name, String type, String status) {
+        ArrayList<Room> rooms = new ArrayList<>();
+        StringBuilder QUERY = new StringBuilder(
+            "SELECT r2.room_id, r2.hotel_id, r2.name, r2.type, r.status, r2.price, r.confirm " +
+            "FROM Reservation r " +
+            "INNER JOIN Hotel h ON r.hotel_id = h.hotel_id " +
+            "INNER JOIN Room r2 ON r.room_id = r2.room_id WHERE 1=1"
+        );
+
+        // Append filters dynamically
+        if (!roomID.isEmpty()) {
+            QUERY.append(" AND r2.room_id = ").append(roomID);
+        }
+        if (!hotelID.isEmpty()) {
+            QUERY.append(" AND r2.hotel_id = ").append(hotelID);
+        }
+        if (!name.isEmpty()) {
+            QUERY.append(" AND r2.name LIKE '%").append(name).append("%'");
+        }
+        if (!type.isEmpty()) {
+            QUERY.append(" AND r2.type LIKE '%").append(type).append("%'");
+        }
+        if (!status.equals("All")) {
+            QUERY.append(" AND r.status = '").append(status).append("'");
+        }
+        QUERY.append(" ORDER BY r.status;");
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, DB_PASSWORD);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(QUERY.toString())) {
+
+            while (rs.next()) {
+                Room r = new Room();
+                r.set_room_id(rs.getInt("room_id"));
+                r.set_hotel_id(rs.getInt("hotel_id"));
+                r.set_name(rs.getString("name"));
+                r.set_type(rs.getString("type"));
+                r.set_status(rs.getString("status"));
+                r.set_price(rs.getFloat("price"));
+                r.set_approved(rs.getInt("confirm"));
+                rooms.add(r);
+            }
+        } catch (SQLException sqle) {
+            System.out.println("SQL Exception: " + sqle.getMessage());
+        } catch (Exception ex) {
+            System.out.println("Exception: " + ex.getMessage());
+        }
+        return rooms;
+    }
+
+
+
     
     
     public void Login(String username, String password){ 
@@ -34,9 +87,11 @@ public class DatabaseConnector {
     
     public static ArrayList<Room> get_all_reservation() {
         ArrayList<Room> rooms = new ArrayList();
-        String QUERY = "SELECT r2.room_id, r2.hotel_id, r2.name, r2.type, r2.status, r2.price , r.confirm FROM Reservation r \n" +
-"	INNER JOIN Hotel h ON r.hotel_id = h.hotel_id \n" +
-"	INNER JOIN Room r2 ON r.room_id = r2.room_id ORDER BY status;";
+        String QUERY = "SELECT r2.room_id, r2.hotel_id, r2.name, r2.type, r.status, r2.price , r.confirm \n" +
+                        "FROM Reservation r\n" +
+                        "INNER JOIN Hotel h ON r.hotel_id = h.hotel_id\n" +
+                        "INNER JOIN Room r2 ON r.room_id = r2.room_id\n" +
+                        "ORDER BY r.status;";
         try{  
             Connection conn = DriverManager.getConnection(DB_URL, USER, DB_PASSWORD);
             
