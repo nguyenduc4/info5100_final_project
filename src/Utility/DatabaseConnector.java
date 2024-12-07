@@ -431,6 +431,7 @@ public class DatabaseConnector {
     
     public static void check_in_reservation(int room_id){ 
         String QUERY = "UPDATE Reservation SET status = 'Checked in' WHERE room_id=?";
+        String QUERY1 = "UPDATE Room SET status = 'Checked in' WHERE room_id=?";
         try{  
             Connection conn = DriverManager.getConnection(DB_URL, USER, DB_PASSWORD);
             PreparedStatement stmt = conn.prepareStatement(QUERY);
@@ -447,10 +448,28 @@ public class DatabaseConnector {
         } catch (Exception ex) { 
             System.out.println(ex);
         }
+        
+        try{  
+            Connection conn = DriverManager.getConnection(DB_URL, USER, DB_PASSWORD);
+            PreparedStatement stmt1 = conn.prepareStatement(QUERY1);
+            
+            stmt1.setInt(1, room_id);
+            
+            int rows = stmt1.executeUpdate();
+
+            System.out.println("Rows updated : " + rows);
+            
+            conn.close() ;
+        }catch (SQLException sqle) { 
+            System.out.println(sqle);
+        } catch (Exception ex) { 
+            System.out.println(ex);
+        }
     }
     
     public static void check_out_reservation(int room_id){ 
         String QUERY = "UPDATE Reservation SET status = 'Unclean' WHERE room_id=?";
+        String QUERY1 = "UPDATE Room SET status = 'Unclean' WHERE room_id=?";
         try{  
             Connection conn = DriverManager.getConnection(DB_URL, USER, DB_PASSWORD);
             PreparedStatement stmt = conn.prepareStatement(QUERY);
@@ -458,6 +477,23 @@ public class DatabaseConnector {
             stmt.setInt(1, room_id);
             
             int rows = stmt.executeUpdate();
+
+            System.out.println("Rows updated : " + rows);
+            
+            conn.close() ;
+        }catch (SQLException sqle) { 
+            System.out.println(sqle);
+        } catch (Exception ex) { 
+            System.out.println(ex);
+        }
+        
+        try{  
+            Connection conn = DriverManager.getConnection(DB_URL, USER, DB_PASSWORD);
+            PreparedStatement stmt1 = conn.prepareStatement(QUERY1);
+            
+            stmt1.setInt(1, room_id);
+            
+            int rows = stmt1.executeUpdate();
 
             System.out.println("Rows updated : " + rows);
             
