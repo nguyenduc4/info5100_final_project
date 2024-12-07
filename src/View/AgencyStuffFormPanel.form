@@ -38,17 +38,13 @@
                           </Group>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="typeTextField" alignment="0" max="32767" attributes="0"/>
                                   <Component id="nameTextField" alignment="0" max="32767" attributes="0"/>
                                   <Component id="hotelIDTextField" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="priceTextField" alignment="0" pref="203" max="32767" attributes="0"/>
-                                  <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jComboBox1" alignment="0" pref="203" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -116,11 +112,6 @@
                           <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="priceTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -154,14 +145,12 @@
         <Component class="javax.swing.JTable" name="roomReportTable">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="7" rowCount="4">
-                <Column editable="true" title="ROOM_ID" type="java.lang.Object"/>
-                <Column editable="true" title="HOTEL_ID" type="java.lang.Object"/>
-                <Column editable="true" title="NAME" type="java.lang.Object"/>
-                <Column editable="true" title="TYPE" type="java.lang.Object"/>
-                <Column editable="true" title="STATUS" type="java.lang.Object"/>
-                <Column editable="true" title="PRICE" type="java.lang.Float"/>
-                <Column editable="true" title="APPROVED" type="java.lang.Boolean"/>
+              <Table columnCount="5" rowCount="4">
+                <Column editable="true" title="room_id" type="java.lang.Object"/>
+                <Column editable="true" title="hotel_id" type="java.lang.Object"/>
+                <Column editable="true" title="room_name" type="java.lang.Object"/>
+                <Column editable="true" title="type" type="java.lang.Object"/>
+                <Column editable="true" title="reservation_status" type="java.lang.Object"/>
               </Table>
             </Property>
           </Properties>
@@ -225,11 +214,6 @@
         <Property name="text" type="java.lang.String" value="Status"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel9">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Price"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JTextField" name="roomIDTextField">
     </Component>
     <Component class="javax.swing.JTextField" name="hotelIDTextField">
@@ -238,21 +222,23 @@
     </Component>
     <Component class="javax.swing.JTextField" name="typeTextField">
     </Component>
-    <Component class="javax.swing.JTextField" name="priceTextField">
-    </Component>
     <Component class="javax.swing.JButton" name="Query">
       <Properties>
         <Property name="text" type="java.lang.String" value="Query"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="QueryActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="jComboBox1">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
+          <StringArray count="5">
             <StringItem index="0" value="Empty"/>
             <StringItem index="1" value="Wait Comfirm"/>
             <StringItem index="2" value="Unpaid"/>
             <StringItem index="3" value="Reserved"/>
+            <StringItem index="4" value="All"/>
           </StringArray>
         </Property>
       </Properties>

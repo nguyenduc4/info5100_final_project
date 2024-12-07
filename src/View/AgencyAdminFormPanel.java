@@ -11,6 +11,7 @@ import Model.User;
 import Utility.DatabaseConnector;
 import java.awt.Color;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -32,20 +33,21 @@ public class AgencyAdminFormPanel extends javax.swing.JPanel {
         populateAdminTable();
     }
     
-    public void populateAdminTable() { 
-        this.users = DatabaseConnector.get_all_Agency_stuff();
-        
+    public void populateAdminTable() {
+        this.users = DatabaseConnector.get_all_agency_admin_and_staff();
+
         DefaultTableModel model = (DefaultTableModel) this.roomReportTable.getModel();
-        model.setRowCount(0);
-        for(User r : this.users) { 
-            Object [] rows = new Object[7];
-            rows[0] = r.get_user_id();
-            rows[1] = r.get_username();
-            rows[2] = r.get_phone_num();
-            rows[3] = r.get_role();
-            model.addRow(rows);
+        model.setRowCount(0); 
+        for (User user : this.users) {
+            Object[] rows = new Object[4];
+            rows[0] = user.get_user_id();
+            rows[1] = user.get_username();
+            rows[2] = user.get_phone_num();
+            rows[3] = user.get_role();
+            model.addRow(rows); 
         }
     }
+
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,6 +76,9 @@ public class AgencyAdminFormPanel extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         jRadioStuff = new javax.swing.JRadioButton();
         jRadioAdmin = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jButton5 = new javax.swing.JButton();
 
         jButton4.setText("jButton4");
 
@@ -111,19 +116,29 @@ public class AgencyAdminFormPanel extends javax.swing.JPanel {
 
         jLabel1.setText("PhoneNumber");
 
-        jButton1.setText("Add Stuff");
+        jButton1.setText("Add Staff");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Remove Stuff");
+        jButton2.setText("Remove Staff");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Update Stuff");
+        jButton3.setText("Update Staff");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioStuff);
-        jRadioStuff.setText("Stuff");
+        jRadioStuff.setText("Staff");
         jRadioStuff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioStuffActionPerformed(evt);
@@ -132,6 +147,21 @@ public class AgencyAdminFormPanel extends javax.swing.JPanel {
 
         buttonGroup1.add(jRadioAdmin);
         jRadioAdmin.setText("Admin");
+
+        jLabel2.setText("UserName");
+
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("Edit");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -145,31 +175,38 @@ public class AgencyAdminFormPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(69, 69, 69)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel11))
-                                .addGap(39, 39, 39)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel11)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jRadioAdmin)
+                                            .addComponent(jRadioStuff)))))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
+                                .addComponent(jLabel10)
+                                .addGap(57, 57, 57)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRadioAdmin)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jRadioStuff)
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE))))))
+                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jPasswordField1)
+                                        .addComponent(jTextField3)
+                                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)))))
+                        .addContainerGap(105, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton1)
-                        .addGap(40, 40, 40)
+                        .addGap(28, 28, 28)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                         .addComponent(jButton3)
-                        .addGap(42, 42, 42)
-                        .addComponent(jButton2)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                        .addGap(33, 33, 33)
+                        .addComponent(jButton2)
+                        .addGap(17, 17, 17))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(230, 230, 230)
                 .addComponent(jLabel5)
@@ -192,11 +229,15 @@ public class AgencyAdminFormPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addComponent(jLabel3)
-                        .addGap(48, 48, 48)
+                        .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10))
-                        .addGap(33, 33, 33)
+                            .addComponent(jLabel10)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11))
@@ -212,8 +253,9 @@ public class AgencyAdminFormPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton2)
                             .addComponent(jButton3)
-                            .addComponent(jButton1))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jButton1)
+                            .addComponent(jButton5))
+                        .addGap(82, 82, 82))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -222,12 +264,140 @@ public class AgencyAdminFormPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        String username = jTextField1.getText();
+        String password = new String(jPasswordField1.getPassword());
+        String phoneNumber = jTextField2.getText();
+        String role = jRadioStuff.isSelected() ? "AgencyStaff" : "AgencyAdmin";
+
+
+        if (username.isEmpty() || password.isEmpty() || phoneNumber.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "All fields are required!", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        User user = new User();
+        user.set_username(username);
+        user.set_password(password);
+        user.set_phone_num(phoneNumber);
+        user.set_role(role);
+
+        DatabaseConnector.add_user(user);
+
+        populateAdminTable();
+
+        jTextField1.setText("");
+        jPasswordField1.setText("");
+        jTextField2.setText("");
+        buttonGroup1.clearSelection();
+
+        JOptionPane.showMessageDialog(this, "New user added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jRadioStuffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioStuffActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioStuffActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+
+        int selectedRowIndex = roomReportTable.getSelectedRow();
+
+        if (selectedRowIndex == -1) {
+
+            JOptionPane.showMessageDialog(this, "Please select a row to edit.", "No Selection", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+
+        int userId = (int) roomReportTable.getValueAt(selectedRowIndex, 0);
+        String username = (String) roomReportTable.getValueAt(selectedRowIndex, 1);
+        String phoneNumber = (String) roomReportTable.getValueAt(selectedRowIndex, 2);
+        String role = (String) roomReportTable.getValueAt(selectedRowIndex, 3);
+
+        jTextField3.setText(String.valueOf(userId));  
+        jTextField3.setEnabled(false);               
+        jTextField1.setText(username);               
+        jPasswordField1.setText("");                
+        jTextField2.setText(phoneNumber);           
+
+        if ("AgencyStaff".equalsIgnoreCase(role)) {
+            jRadioStuff.setSelected(true);
+        } else if ("AgencyAdmin".equalsIgnoreCase(role)) {
+            jRadioAdmin.setSelected(true);
+        } else {
+            buttonGroup1.clearSelection();
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+
+        int userId = Integer.parseInt(jTextField3.getText());
+        String username = jTextField1.getText();
+        String password = new String(jPasswordField1.getPassword());
+        String phoneNumber = jTextField2.getText();
+        String role = jRadioStuff.isSelected() ? "AgencyStaff" : "AgencyAdmin";
+
+        if (username.isEmpty() || phoneNumber.isEmpty() || role.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "All fields except password are required!", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        User user = new User();
+        user.set_user_id(userId);
+        user.set_username(username);
+        user.set_password(password.isEmpty() ? null : password); 
+        user.set_phone_num(phoneNumber);
+        user.set_role(role);
+
+        DatabaseConnector.update_user(user);
+
+
+        populateAdminTable();
+
+        // 提示更新成功
+        JOptionPane.showMessageDialog(this, "User updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+        clearForm();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = roomReportTable.getSelectedRow();
+
+        if (selectedRowIndex == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a row to remove.", "No Selection", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int userId = (int) roomReportTable.getValueAt(selectedRowIndex, 0);
+
+        int confirmation = JOptionPane.showConfirmDialog(this, 
+                "Are you sure you want to remove this user?", 
+                "Confirm Removal", 
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirmation == JOptionPane.YES_OPTION) {
+            DatabaseConnector.remove_user(userId);
+
+            populateAdminTable();
+
+            JOptionPane.showMessageDialog(this, "User removed successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void clearForm() {
+        jTextField3.setText("");      
+        jTextField3.setEnabled(true);   
+        jTextField1.setText("");       
+        jPasswordField1.setText("");    
+        jTextField2.setText("");     
+        buttonGroup1.clearSelection(); 
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -236,9 +406,11 @@ public class AgencyAdminFormPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -248,6 +420,7 @@ public class AgencyAdminFormPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JTable roomReportTable;
     // End of variables declaration//GEN-END:variables
 }

@@ -10,6 +10,7 @@ import Model.Room;
 import Utility.DatabaseConnector;
 import java.awt.Color;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -33,21 +34,20 @@ public class AgencyStuffFormPanel extends javax.swing.JPanel {
     
     public void populateAdminTable() { 
         this.room = DatabaseConnector.get_all_reservation();
-        
+
         DefaultTableModel model = (DefaultTableModel) this.roomReportTable.getModel();
         model.setRowCount(0);
-        for(Room r : this.room) { 
-            Object [] rows = new Object[7];
+        for(Room r : this.room) {
+            Object [] rows = new Object[5];
             rows[0] = r.get_room_id();
             rows[1] = r.get_hotel_id();
             rows[2] = r.get_name();
             rows[3] = r.get_type();
             rows[4] = r.get_status();
-            rows[5] = r.get_price();
-            rows[6] = (r.get_approved() == 1);
             model.addRow(rows);
         }
     }
+
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,12 +70,10 @@ public class AgencyStuffFormPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         roomIDTextField = new javax.swing.JTextField();
         hotelIDTextField = new javax.swing.JTextField();
         nameTextField = new javax.swing.JTextField();
         typeTextField = new javax.swing.JTextField();
-        priceTextField = new javax.swing.JTextField();
         Query = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
 
@@ -84,23 +82,15 @@ public class AgencyStuffFormPanel extends javax.swing.JPanel {
 
         roomReportTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ROOM_ID", "HOTEL_ID", "NAME", "TYPE", "STATUS", "PRICE", "APPROVED"
+                "room_id", "hotel_id", "room_name", "type", "reservation_status"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class, java.lang.Boolean.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         jScrollPane1.setViewportView(roomReportTable);
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
@@ -133,11 +123,14 @@ public class AgencyStuffFormPanel extends javax.swing.JPanel {
 
         jLabel8.setText("Status");
 
-        jLabel9.setText("Price");
-
         Query.setText("Query");
+        Query.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                QueryActionPerformed(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Empty", "Wait Comfirm", "Unpaid", "Reserved" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Empty", "Wait Comfirm", "Unpaid", "Reserved", "All" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -168,16 +161,13 @@ public class AgencyStuffFormPanel extends javax.swing.JPanel {
                                 .addComponent(Query))
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel9))
+                                .addComponent(jLabel8)
                                 .addGap(74, 74, 74)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(typeTextField)
                                     .addComponent(nameTextField)
                                     .addComponent(hotelIDTextField, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(priceTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(jComboBox1, 0, 203, Short.MAX_VALUE))))
                         .addComponent(roomIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(95, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -228,10 +218,6 @@ public class AgencyStuffFormPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(priceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -243,15 +229,82 @@ public class AgencyStuffFormPanel extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        int selectedRowIndex = roomReportTable.getSelectedRow();
+        if (selectedRowIndex == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a room to pay for.", "No Selection", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Room selectedRoom = room.get(selectedRowIndex);
+
+        if ("Unpaid".equals(selectedRoom.get_status())) {
+            selectedRoom.set_status("Reserved");
+
+            // Update database
+            DatabaseConnector.update_reservation_status(selectedRoom.get_room_id(), "Reserved");
+
+            // Refresh table
+            populateAdminTable();
+
+            JOptionPane.showMessageDialog(this, "Payment successful! Reservation is now Reserved.", "Payment Successful", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Payment cannot be processed. The room is not in Unpaid status.", "Payment Failed", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        int selectedRowIndex = roomReportTable.getSelectedRow();
+        if (selectedRowIndex == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a room to book.", "No Selection", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Room selectedRoom = room.get(selectedRowIndex);
+
+        if ("Empty".equals(selectedRoom.get_status())) {
+            selectedRoom.set_status("Wait Confirm");
+
+            // Update status in the database
+            DatabaseConnector.update_reservation_status(selectedRoom.get_room_id(), "Wait Comfirm");
+
+            // Refresh the table data
+            populateAdminTable();
+
+            JOptionPane.showMessageDialog(this, "Reservation has been updated to Wait Confirm.", "Booking Successful", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Room is not available for booking.", "Booking Failed", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void QueryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QueryActionPerformed
+        // Get input values
+        String roomID = roomIDTextField.getText().trim();
+        String hotelID = hotelIDTextField.getText().trim();
+        String name = nameTextField.getText().trim();
+        String type = typeTextField.getText().trim();
+        String status = jComboBox1.getSelectedItem().toString();
+
+        // Get filtered data
+        ArrayList<Room> filteredRooms = DatabaseConnector.get_filtered_reservation(roomID, hotelID, name, type, status);
+
+        // Update table with filtered data
+        DefaultTableModel model = (DefaultTableModel) roomReportTable.getModel();
+        model.setRowCount(0);
+        for (Room r : filteredRooms) {
+            Object[] rows = new Object[5];
+            rows[0] = r.get_room_id();
+            rows[1] = r.get_hotel_id();
+            rows[2] = r.get_name();
+            rows[3] = r.get_type();
+            rows[4] = r.get_status();
+            model.addRow(rows);
+        }
+    }//GEN-LAST:event_QueryActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -268,10 +321,8 @@ public class AgencyStuffFormPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nameTextField;
-    private javax.swing.JTextField priceTextField;
     private javax.swing.JTextField roomIDTextField;
     private javax.swing.JTable roomReportTable;
     private javax.swing.JTextField typeTextField;
