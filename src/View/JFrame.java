@@ -164,9 +164,9 @@ public class JFrame extends javax.swing.JFrame {
         String password = new String(txtPassword.getPassword());
         // verify username&password
         User u = dbConnector.login(username, password);
+        this.bottomJPanel.removeAll();
         if (u != null && "AgencyAdmin".equals(u.get_role())) {
             AgencyAdminFormPanel newFormJPanel = new AgencyAdminFormPanel(this.bottomJPanel);
-            this.bottomJPanel.removeAll();
             this.bottomJPanel.add(newFormJPanel);
             CardLayout layout = (CardLayout) this.bottomJPanel.getLayout();
             layout.next(this.bottomJPanel);
@@ -181,9 +181,9 @@ public class JFrame extends javax.swing.JFrame {
         String password = new String(txtPassword.getPassword());
         // verify username&password
         User u = dbConnector.login(username, password);
+        this.bottomJPanel.removeAll();
         if (u != null && "AgencyStaff".equals(u.get_role())) {
             AgencyStuffFormPanel newFormJPanel = new AgencyStuffFormPanel(this.bottomJPanel);
-            this.bottomJPanel.removeAll();
             this.bottomJPanel.add(newFormJPanel);
             CardLayout layout = (CardLayout) this.bottomJPanel.getLayout();
             layout.next(this.bottomJPanel);
@@ -197,9 +197,9 @@ public class JFrame extends javax.swing.JFrame {
         String password = new String(txtPassword.getPassword());
         // verify username&password
         User u = dbConnector.login(username, password);
+        this.bottomJPanel.removeAll();
         if (u != null && "HotelAdmin".equals(u.get_role())) {
             HotelAdminFormPanel newFormJPanel = new HotelAdminFormPanel(this.bottomJPanel);
-            this.bottomJPanel.removeAll();
             this.bottomJPanel.add(newFormJPanel);
             CardLayout layout = (CardLayout) this.bottomJPanel.getLayout();
             layout.next(this.bottomJPanel);
@@ -213,9 +213,9 @@ public class JFrame extends javax.swing.JFrame {
         String password = new String(txtPassword.getPassword());
         // verify username&password
         User u = dbConnector.login(username, password);
+        this.bottomJPanel.removeAll();
         if (u != null && "HotelStaff".equals(u.get_role())) {
             HotelStuffFormPanel newFormJPanel = new HotelStuffFormPanel(this.bottomJPanel);
-            this.bottomJPanel.removeAll();
             this.bottomJPanel.add(newFormJPanel);
             CardLayout layout = (CardLayout) this.bottomJPanel.getLayout();
             layout.next(this.bottomJPanel);
