@@ -33,7 +33,8 @@ public class AgencyStuffFormPanel extends javax.swing.JPanel {
     }
     
     public void populateAdminTable() { 
-        this.room = DatabaseConnector.get_all_reservation();
+//        this.room = DatabaseConnector.get_all_reservation();
+        this.room = DatabaseConnector.get_all_available_room();
 
         DefaultTableModel model = (DefaultTableModel) this.roomReportTable.getModel();
         model.setRowCount(0);

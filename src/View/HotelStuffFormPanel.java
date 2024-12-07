@@ -32,6 +32,7 @@ public class HotelStuffFormPanel extends javax.swing.JPanel {
     }
     
     public void populateAdminTable() { 
+        System.out.println("POPULETATEET!!!!!!!!!!");
         this.room = DatabaseConnector.get_all_reservation();
         
         DefaultTableModel model = (DefaultTableModel) this.roomReportTable.getModel();

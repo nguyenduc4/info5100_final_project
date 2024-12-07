@@ -18,17 +18,14 @@ import javax.swing.table.DefaultTableModel;
  * @author danie
  */
 public class WelcomePanel extends javax.swing.JPanel {
-
+    JPanel bottomJPanel;
     
     /**
      * Creates new form LoginFormPanel
      */
     public WelcomePanel() {
-
-    }
-    
-    public void populateAdminTable() { 
-
+        this.bottomJPanel = bottomJPanel;
+        initComponents();
     }
     
     /**

@@ -188,21 +188,69 @@ public class DatabaseConnector {
         return rooms;
     }
 
+   public static void add_user(User user) {
+        String query = "INSERT INTO User (username, password, phone_num, role) VALUES (?, ?, ?, ?)";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
 
+            stmt.setString(1, user.get_username());
+            stmt.setString(2, user.get_password());
+            stmt.setString(3, user.get_phone_num());
+            stmt.setString(4, user.get_role());
 
-            
-            int rows = stmt.executeUpdate();
+            int rowsAffected = stmt.executeUpdate();
+            System.out.println("Rows inserted: " + rowsAffected);
 
-            System.out.println("Rows updated : " + rows);
-            
-            conn.close() ;
-        }catch (SQLException sqle) { 
-            System.out.println(sqle);
-        } catch (Exception ex) { 
-            System.out.println(ex);
+        } catch (SQLException e) {
+            System.out.println("SQL Exception: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error adding user: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
+    
+    
+    public static void update_user(User user) {
+        String query = "UPDATE User SET username = ?, phone_num = ?, role = ?" +
+                       (user.get_password() != null ? ", password = ?" : "") + // 如果密码非空，则更新
+                       " WHERE user_id = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, user.get_username());
+            stmt.setString(2, user.get_phone_num());
+            stmt.setString(3, user.get_role());
+
+            int paramIndex = 4;
+            if (user.get_password() != null) {
+                stmt.setString(paramIndex++, user.get_password());
+            }
+
+            stmt.setInt(paramIndex, user.get_user_id());
+
+            int rowsUpdated = stmt.executeUpdate();
+            System.out.println("Rows updated: " + rowsUpdated);
+
+        } catch (SQLException e) {
+            System.out.println("SQL Exception: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error updating user: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public static void remove_user(int userId) {
+        String query = "DELETE FROM User WHERE user_id = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, userId);
+
+            int rowsDeleted = stmt.executeUpdate();
+            System.out.println("Rows deleted: " + rowsDeleted);
+
+        } catch (SQLException e) {
+            System.out.println("SQL Exception: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error removing user: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }    
     
     public User login(String username, String password) {
         String sql = "SELECT user_id, username, password, phone_num, role FROM User WHERE username=? AND password=?";
@@ -235,6 +283,36 @@ public class DatabaseConnector {
         String QUERY = "SELECT r2.room_id, r2.hotel_id, r2.name, r2.type, r2.price , r.status FROM Reservation r \n" +
 "	INNER JOIN Hotel h ON r.hotel_id = h.hotel_id \n" +
 "	INNER JOIN Room r2 ON r.room_id = r2.room_id ORDER BY status;";
+        try{  
+            Connection conn = DriverManager.getConnection(DB_URL, USER, DB_PASSWORD);
+            
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(QUERY);
+            
+            while(rs.next()) { 
+                Room r = new Room() ;
+                r.set_room_id(Integer.parseInt(rs.getString("room_id")));
+                r.set_hotel_id(Integer.parseInt(rs.getString("hotel_id")));
+                System.out.println(rs.getString("name"));
+                r.set_name(rs.getString("name"));
+                r.set_type(rs.getString("type"));
+                r.set_status(rs.getString("status"));
+                r.set_price(Float.parseFloat(rs.getString("price")));
+                rooms.add(r);
+            }
+            rs.close();
+            conn.close() ;
+        }catch (SQLException sqle) { 
+            System.out.println(sqle);
+        } catch (Exception ex) { 
+            System.out.println(ex);
+        }
+        return rooms;
+    }
+    
+        public static ArrayList<Room> get_all_available_room() {
+        ArrayList<Room> rooms = new ArrayList();
+        String QUERY = "SELECT * FROM Room";
         try{  
             Connection conn = DriverManager.getConnection(DB_URL, USER, DB_PASSWORD);
             
@@ -296,6 +374,7 @@ public class DatabaseConnector {
     
     public static void approve_reservation(int room_id){ 
         String QUERY = "UPDATE Reservation SET status = 'Unpaid' WHERE room_id=?";
+        String QUERY1 = "UPDATE Room SET status = 'Unpaid' WHERE room_id=?";
         try{  
             Connection conn = DriverManager.getConnection(DB_URL, USER, DB_PASSWORD);
             PreparedStatement stmt = conn.prepareStatement(QUERY);
@@ -303,6 +382,22 @@ public class DatabaseConnector {
             stmt.setInt(1, room_id);
             
             int rows = stmt.executeUpdate();
+
+            System.out.println("Rows updated : " + rows);
+            
+            conn.close() ;
+        }catch (SQLException sqle) { 
+            System.out.println(sqle);
+        } catch (Exception ex) { 
+            System.out.println(ex);
+        }
+        try{  
+            Connection conn = DriverManager.getConnection(DB_URL, USER, DB_PASSWORD);
+            PreparedStatement stmt1 = conn.prepareStatement(QUERY1);
+            
+            stmt1.setInt(1, room_id);
+            
+            int rows = stmt1.executeUpdate();
 
             System.out.println("Rows updated : " + rows);
             
@@ -396,13 +491,29 @@ public class DatabaseConnector {
     
     public static void update_reservation_status(int room_id, String newStatus) {
         String QUERY = "UPDATE Reservation SET status = ? WHERE room_id = ?";
+        String QUERY1 = "UPDATE Room SET status = ? WHERE room_id = ?";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, DB_PASSWORD);
-             PreparedStatement stmt = conn.prepareStatement(QUERY)) {
+            PreparedStatement stmt = conn.prepareStatement(QUERY)) {
 
             stmt.setString(1, newStatus);
             stmt.setInt(2, room_id);
 
             int rows = stmt.executeUpdate();
+            System.out.println("Rows updated : " + rows);
+
+        } catch (SQLException sqle) {
+            System.out.println("SQL Exception: " + sqle.getMessage());
+        } catch (Exception ex) {
+            System.out.println("Exception: " + ex.getMessage());
+        }
+        
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, DB_PASSWORD);
+            PreparedStatement stmt1 = conn.prepareStatement(QUERY1)) {
+
+            stmt1.setString(1, newStatus);
+            stmt1.setInt(2, room_id);
+
+            int rows = stmt1.executeUpdate();
             System.out.println("Rows updated : " + rows);
 
         } catch (SQLException sqle) {
