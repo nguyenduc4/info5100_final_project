@@ -6,6 +6,7 @@ import java.sql.*;
 
 import Model.User;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -24,6 +25,48 @@ public class DatabaseConnector {
     public static ArrayList<User> get_all_Agency_stuff() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    public static void add_user(User user) {
+        String query = "INSERT INTO User (username, password, phone_num, role) VALUES (?, ?, ?, ?)";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, user.get_username());
+            stmt.setString(2, user.get_password());
+            stmt.setString(3, user.get_phone_num());
+            stmt.setString(4, user.get_role());
+
+            int rowsAffected = stmt.executeUpdate();
+            System.out.println("Rows inserted: " + rowsAffected);
+
+        } catch (SQLException e) {
+            System.out.println("SQL Exception: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error adding user: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    
+    public static ArrayList<User> get_all_agency_admin_and_staff() {
+        ArrayList<User> users = new ArrayList<>();
+        String QUERY = "SELECT * FROM User WHERE role IN ('AgencyStaff', 'AgencyAdmin')";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, DB_PASSWORD);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(QUERY)) {
+
+            while (rs.next()) {
+                User u = new User();
+                u.set_user_id(rs.getInt("user_id"));
+                u.set_username(rs.getString("username"));
+                u.set_phone_num(rs.getString("phone_num"));
+                u.set_role(rs.getString("role"));
+                users.add(u);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Exception: " + e.getMessage());
+        }
+        return users;
+    }
+
 
 
     public static ArrayList<Room> get_filtered_reservation(String roomID, String hotelID, String name, String type, String status) {

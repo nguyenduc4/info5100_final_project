@@ -19,7 +19,7 @@ public class JFrame extends javax.swing.JFrame {
     }
     
     public void InitDefaultBottomLayout() { 
-        AgencyStuffFormPanel newFormJPanel = new AgencyStuffFormPanel(this.bottomJPanel);
+        AgencyAdminFormPanel newFormJPanel = new AgencyAdminFormPanel(this.bottomJPanel);
         this.bottomJPanel.add(newFormJPanel);
         CardLayout layout = (CardLayout) this.bottomJPanel.getLayout();
         layout.next(this.bottomJPanel);
