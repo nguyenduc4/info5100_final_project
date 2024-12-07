@@ -247,19 +247,24 @@ public class AgencyStuffFormPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         int selectedRowIndex = roomReportTable.getSelectedRow();
-        if (selectedRowIndex != -1) { // 确保有行被选中
-            Room selectedRoom = room.get(selectedRowIndex);
-            if ("Empty".equals(selectedRoom.get_status())) { 
-                selectedRoom.set_status("Wait Confirm"); 
-                DatabaseConnector.update_reservation_status(selectedRoom.get_room_id(), "Wait Confirm"); 
-                populateAdminTable(); 
-            } else {
-                JOptionPane.showMessageDialog(this, "Room is not available for booking.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+        if (selectedRowIndex == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a room to book.", "No Selection", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Room selectedRoom = room.get(selectedRowIndex);
+
+        if ("Empty".equals(selectedRoom.get_status())) {
+
+            selectedRoom.set_status("Wait Comfirm");
+
+            DatabaseConnector.update_reservation_status(selectedRoom.get_room_id(), "Wait Comfirm");
+
+            populateAdminTable();
+            JOptionPane.showMessageDialog(this, "Reservation has been updated to Wait Comfirm.", "Booking Successful", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "Please select a room to book.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Room is not available for booking.", "Booking Failed", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
