@@ -3,26 +3,54 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package View;
+import Model.User;
+import Utility.DatabaseConnector;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import View.AgencyAdminFormPanel;
 /**
  *
  * @author danie
  */
 public class JFrame extends javax.swing.JFrame {
-
+    private JTextField txtUsername;
+    private JPasswordField txtPassword;
+    private DatabaseConnector dbConnector;
     /**
      * Creates new form JFrame
      */
     public JFrame() {
         initComponents();
+        dbConnector = new DatabaseConnector();
+        txtUsername = jTextField1;
+        txtPassword = jPasswordField1;
+        
         InitDefaultBottomLayout();
     }
     
     public void InitDefaultBottomLayout() { 
-        HotelStuffFormPanel newFormJPanel = new HotelStuffFormPanel(this.bottomJPanel);
-        this.bottomJPanel.add(newFormJPanel);
-        CardLayout layout = (CardLayout) this.bottomJPanel.getLayout();
-        layout.next(this.bottomJPanel);
+//        HotelStuffFormPanel newFormJPanel = new HotelStuffFormPanel(this.bottomJPanel);
+//        this.bottomJPanel.add(newFormJPanel);
+//        CardLayout layout = (CardLayout) this.bottomJPanel.getLayout();
+//        layout.next(this.bottomJPanel);
+        bottomJPanel.setLayout(new CardLayout());
+    
+        HotelStuffFormPanel hotelStuffPanel = new HotelStuffFormPanel(this.bottomJPanel);
+        bottomJPanel.add(hotelStuffPanel, "HotelStuff");
+
+        AgencyAdminFormPanel agencyAdminPanel = new AgencyAdminFormPanel(this.bottomJPanel);
+        bottomJPanel.add(agencyAdminPanel, "AgencyAdmin");
+
+        AgencyStuffFormPanel agencyStuffPanel = new AgencyStuffFormPanel(this.bottomJPanel);
+        bottomJPanel.add(agencyStuffPanel, "AgencyStuff");
+
+        HotelAdminFormPanel hotelAdminPanel = new HotelAdminFormPanel(this.bottomJPanel);
+        bottomJPanel.add(hotelAdminPanel, "HotelAdmin");
+
+        CardLayout layout = (CardLayout) bottomJPanel.getLayout();
+        layout.show(bottomJPanel, "HotelStuff");
     }
     
     /**
@@ -148,19 +176,55 @@ public class JFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AgencyAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgencyAdminActionPerformed
-        // TODO add your handling code here:
+        String username = txtUsername.getText().trim();
+        String password = new String(txtPassword.getPassword());
+        // verify username&password
+        User u = dbConnector.login(username, password);
+        if (u != null) {
+            CardLayout layout = (CardLayout) bottomJPanel.getLayout();
+            layout.show(bottomJPanel, "AgencyAdmin");
+        } else {
+            JOptionPane.showMessageDialog(this, "user or password error！");
+        }
     }//GEN-LAST:event_AgencyAdminActionPerformed
 
     private void AgencyStuffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgencyStuffActionPerformed
-        // TODO add your handling code here:
+        String username = txtUsername.getText().trim();
+        String password = new String(txtPassword.getPassword());
+        // verify username&password
+        User u = dbConnector.login(username, password);
+        if (u != null) {
+            CardLayout layout = (CardLayout) bottomJPanel.getLayout();
+            layout.show(bottomJPanel, "AgencyStuff");
+        } else {
+            JOptionPane.showMessageDialog(this, "user or password error！");
+        }
     }//GEN-LAST:event_AgencyStuffActionPerformed
 
     private void HotelAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HotelAdminActionPerformed
-        // TODO add your handling code here:
+        String username = txtUsername.getText().trim();
+        String password = new String(txtPassword.getPassword());
+        // verify username&password
+        User u = dbConnector.login(username, password);
+        if (u != null) {
+            CardLayout layout = (CardLayout) bottomJPanel.getLayout();
+            layout.show(bottomJPanel, "HotelAdmin");
+        } else {
+            JOptionPane.showMessageDialog(this, "user or password error! ");
+        }
     }//GEN-LAST:event_HotelAdminActionPerformed
 
     private void HotelStuffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HotelStuffActionPerformed
-        // TODO add your handling code here:
+        String username = txtUsername.getText().trim();
+        String password = new String(txtPassword.getPassword());
+        // verify username&password
+        User u = dbConnector.login(username, password);
+        if (u != null) {
+            CardLayout layout = (CardLayout) bottomJPanel.getLayout();
+            layout.show(bottomJPanel, "HotelStuff");
+        } else {
+            JOptionPane.showMessageDialog(this, "user or password error!");
+        }
     }//GEN-LAST:event_HotelStuffActionPerformed
 
     /**
