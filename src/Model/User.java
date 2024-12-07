@@ -11,7 +11,7 @@ public class User {
     private String phone_num;
     private String role; 
     
-    // 参数化构造函数
+
     public User(String username, String password, String phone_num, String role) {
         this.username = username;
         this.password = password;
@@ -19,12 +19,11 @@ public class User {
         this.role = role;
     }
 
-    // 无参数构造函数
+
     public User() {
-        // 留空以支持无参实例化
+
     }
 
-    // Getter 方法
     public int get_user_id() { 
         return this.user_id;
     }
@@ -45,7 +44,7 @@ public class User {
         return this.role;
     }
 
-    // Setter 方法
+
     public void set_user_id(int user_id) {
         this.user_id = user_id;
     }
