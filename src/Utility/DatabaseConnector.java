@@ -24,6 +24,19 @@ public class DatabaseConnector {
     public static ArrayList<User> get_all_Agency_stuff() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    public static void update_reservation_status(int _room_id, String wait_Confirm) {
+        String QUERY = "UPDATE Reservation SET status = ? WHERE room_id=?";
+        try(Connection conn = DriverManager.getConnection(DB_URL, USER, DB_PASSWORD);
+            PreparedStatement stmt = conn.prepareStatement(QUERY)) {
+            stmt.setString(1, newStatus);
+            stmt.setInt(2, room_id);
+            int rows = stmt.executeUpdate();
+            System.out.println("Reservation status updated: " + rows);
+        } catch (SQLException sqle) {
+            System.out.println("Error updating reservation status: " + sqle.getMessage());
+        }
+    }
     
     public void Login(String username, String password){ 
         

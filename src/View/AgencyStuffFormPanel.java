@@ -10,6 +10,7 @@ import Model.Room;
 import Utility.DatabaseConnector;
 import java.awt.Color;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -33,10 +34,10 @@ public class AgencyStuffFormPanel extends javax.swing.JPanel {
     
     public void populateAdminTable() { 
         this.room = DatabaseConnector.get_all_reservation();
-        
+    
         DefaultTableModel model = (DefaultTableModel) this.roomReportTable.getModel();
         model.setRowCount(0);
-        for(Room r : this.room) { 
+        for(Room r : this.room) {
             Object [] rows = new Object[7];
             rows[0] = r.get_room_id();
             rows[1] = r.get_hotel_id();
@@ -247,6 +248,19 @@ public class AgencyStuffFormPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        int selectedRowIndex = roomReportTable.getSelectedRow();
+        if (selectedRowIndex != -1) { // 确保有行被选中
+            Room selectedRoom = room.get(selectedRowIndex);
+            if ("Empty".equals(selectedRoom.get_status())) { 
+                selectedRoom.set_status("Wait Confirm"); 
+                DatabaseConnector.update_reservation_status(selectedRoom.get_room_id(), "Wait Confirm"); 
+                populateAdminTable(); 
+            } else {
+                JOptionPane.showMessageDialog(this, "Room is not available for booking.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a room to book.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
