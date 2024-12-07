@@ -78,6 +78,7 @@ public class AgencyAdminFormPanel extends javax.swing.JPanel {
         jRadioAdmin = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
+        jButton5 = new javax.swing.JButton();
 
         jButton4.setText("jButton4");
 
@@ -123,8 +124,18 @@ public class AgencyAdminFormPanel extends javax.swing.JPanel {
         });
 
         jButton2.setText("Remove Staff");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Update Staff");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioStuff);
         jRadioStuff.setText("Staff");
@@ -145,6 +156,13 @@ public class AgencyAdminFormPanel extends javax.swing.JPanel {
             }
         });
 
+        jButton5.setText("Edit");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -154,35 +172,41 @@ public class AgencyAdminFormPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(69, 69, 69)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(40, 40, 40)
-                        .addComponent(jButton3)
-                        .addGap(42, 42, 42)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
+                        .addGap(69, 69, 69)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel11)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
+                                .addGap(4, 4, 4)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRadioAdmin)
-                                    .addComponent(jRadioStuff)))))
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel11)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jRadioAdmin)
+                                            .addComponent(jRadioStuff)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(57, 57, 57)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jPasswordField1)
+                                        .addComponent(jTextField3)
+                                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)))))
+                        .addContainerGap(105, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(57, 57, 57)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jPasswordField1)
-                                .addComponent(jTextField3)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)))))
-                .addContainerGap(66, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(28, 28, 28)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                        .addComponent(jButton3)
+                        .addGap(33, 33, 33)
+                        .addComponent(jButton2)
+                        .addGap(17, 17, 17))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(230, 230, 230)
                 .addComponent(jLabel5)
@@ -229,7 +253,8 @@ public class AgencyAdminFormPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton2)
                             .addComponent(jButton3)
-                            .addComponent(jButton1))
+                            .addComponent(jButton1)
+                            .addComponent(jButton5))
                         .addGap(82, 82, 82))))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -276,6 +301,104 @@ public class AgencyAdminFormPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+
+        int selectedRowIndex = roomReportTable.getSelectedRow();
+
+        if (selectedRowIndex == -1) {
+
+            JOptionPane.showMessageDialog(this, "Please select a row to edit.", "No Selection", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+
+        int userId = (int) roomReportTable.getValueAt(selectedRowIndex, 0);
+        String username = (String) roomReportTable.getValueAt(selectedRowIndex, 1);
+        String phoneNumber = (String) roomReportTable.getValueAt(selectedRowIndex, 2);
+        String role = (String) roomReportTable.getValueAt(selectedRowIndex, 3);
+
+        jTextField3.setText(String.valueOf(userId));  
+        jTextField3.setEnabled(false);               
+        jTextField1.setText(username);               
+        jPasswordField1.setText("");                
+        jTextField2.setText(phoneNumber);           
+
+        if ("AgencyStaff".equalsIgnoreCase(role)) {
+            jRadioStuff.setSelected(true);
+        } else if ("AgencyAdmin".equalsIgnoreCase(role)) {
+            jRadioAdmin.setSelected(true);
+        } else {
+            buttonGroup1.clearSelection();
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+
+        int userId = Integer.parseInt(jTextField3.getText());
+        String username = jTextField1.getText();
+        String password = new String(jPasswordField1.getPassword());
+        String phoneNumber = jTextField2.getText();
+        String role = jRadioStuff.isSelected() ? "AgencyStaff" : "AgencyAdmin";
+
+        if (username.isEmpty() || phoneNumber.isEmpty() || role.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "All fields except password are required!", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        User user = new User();
+        user.set_user_id(userId);
+        user.set_username(username);
+        user.set_password(password.isEmpty() ? null : password); 
+        user.set_phone_num(phoneNumber);
+        user.set_role(role);
+
+        DatabaseConnector.update_user(user);
+
+
+        populateAdminTable();
+
+        // 提示更新成功
+        JOptionPane.showMessageDialog(this, "User updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+        clearForm();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = roomReportTable.getSelectedRow();
+
+        if (selectedRowIndex == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a row to remove.", "No Selection", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int userId = (int) roomReportTable.getValueAt(selectedRowIndex, 0);
+
+        int confirmation = JOptionPane.showConfirmDialog(this, 
+                "Are you sure you want to remove this user?", 
+                "Confirm Removal", 
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirmation == JOptionPane.YES_OPTION) {
+            DatabaseConnector.remove_user(userId);
+
+            populateAdminTable();
+
+            JOptionPane.showMessageDialog(this, "User removed successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void clearForm() {
+        jTextField3.setText("");      
+        jTextField3.setEnabled(true);   
+        jTextField1.setText("");       
+        jPasswordField1.setText("");    
+        jTextField2.setText("");     
+        buttonGroup1.clearSelection(); 
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -283,6 +406,7 @@ public class AgencyAdminFormPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

@@ -26,6 +26,50 @@ public class DatabaseConnector {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
+    public static void remove_user(int userId) {
+        String query = "DELETE FROM User WHERE user_id = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, userId);
+
+            int rowsDeleted = stmt.executeUpdate();
+            System.out.println("Rows deleted: " + rowsDeleted);
+
+        } catch (SQLException e) {
+            System.out.println("SQL Exception: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error removing user: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public static void update_user(User user) {
+        String query = "UPDATE User SET username = ?, phone_num = ?, role = ?" +
+                       (user.get_password() != null ? ", password = ?" : "") + // 如果密码非空，则更新
+                       " WHERE user_id = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, user.get_username());
+            stmt.setString(2, user.get_phone_num());
+            stmt.setString(3, user.get_role());
+
+            int paramIndex = 4;
+            if (user.get_password() != null) {
+                stmt.setString(paramIndex++, user.get_password());
+            }
+
+            stmt.setInt(paramIndex, user.get_user_id());
+
+            int rowsUpdated = stmt.executeUpdate();
+            System.out.println("Rows updated: " + rowsUpdated);
+
+        } catch (SQLException e) {
+            System.out.println("SQL Exception: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error updating user: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    
     public static void add_user(User user) {
         String query = "INSERT INTO User (username, password, phone_num, role) VALUES (?, ?, ?, ?)";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, DB_PASSWORD);
