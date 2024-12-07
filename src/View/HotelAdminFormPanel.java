@@ -323,6 +323,7 @@ public class HotelAdminFormPanel extends javax.swing.JPanel {
         
         this.currUser.set_password(this.passwordTextField.getText());
         this.currUser.set_phone_num(this.phoneNumberTextField.getText());
+        this.currUser.set_role(this.rowComboBox.getSelectedItem().toString());
         DatabaseConnector.update_agency_staff(this.currUser);
         populateAdminTable();
     }//GEN-LAST:event_jButton2ActionPerformed

@@ -312,7 +312,7 @@ public class DatabaseConnector {
     
         public static ArrayList<Room> get_all_available_room() {
         ArrayList<Room> rooms = new ArrayList();
-        String QUERY = "SELECT * FROM Room";
+        String QUERY = "SELECT * FROM Room ORDER BY status;";
         try{  
             Connection conn = DriverManager.getConnection(DB_URL, USER, DB_PASSWORD);
             

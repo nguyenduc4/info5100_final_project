@@ -39,12 +39,13 @@ public class AgencyStuffFormPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) this.roomReportTable.getModel();
         model.setRowCount(0);
         for(Room r : this.room) {
-            Object [] rows = new Object[5];
+            Object [] rows = new Object[6];
             rows[0] = r.get_room_id();
             rows[1] = r.get_hotel_id();
             rows[2] = r.get_name();
             rows[3] = r.get_type();
             rows[4] = r.get_status();
+            rows[5] = r.get_price();
             model.addRow(rows);
         }
     }
@@ -83,13 +84,13 @@ public class AgencyStuffFormPanel extends javax.swing.JPanel {
 
         roomReportTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "room_id", "hotel_id", "room_name", "type", "reservation_status"
+                "room_id", "hotel_id", "room_name", "type", "reservation_status", "Price"
             }
         ));
         jScrollPane1.setViewportView(roomReportTable);
@@ -98,7 +99,7 @@ public class AgencyStuffFormPanel extends javax.swing.JPanel {
         jLabel4.setText("Report");
 
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
-        jLabel5.setText("Reservation");
+        jLabel5.setText("Room Status");
 
         jButton1.setText("Book");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -158,7 +159,7 @@ public class AgencyStuffFormPanel extends javax.swing.JPanel {
                                 .addComponent(jButton1)
                                 .addGap(46, 46, 46)
                                 .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                                 .addComponent(Query))
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
@@ -179,7 +180,7 @@ public class AgencyStuffFormPanel extends javax.swing.JPanel {
                 .addGroup(layout.createSequentialGroup()
                     .addGap(105, 105, 105)
                     .addComponent(jLabel5)
-                    .addContainerGap(763, Short.MAX_VALUE)))
+                    .addContainerGap(745, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
