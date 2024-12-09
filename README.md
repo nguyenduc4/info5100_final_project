@@ -3,5 +3,7 @@ https://drive.google.com/drive/folders/1KTLHyWXsZd1wAx3qlUZhN9fIaNwjn7_F?usp=dri
 
 Group Member:
 Chi Zhang
+
 Duc Nguyen
+
 Jincheng Jiang
